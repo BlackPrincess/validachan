@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" charset="utf-8">
+  <meta name="author" content="">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <title></title>
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <meta name="viewport" content="initial-scale=1.0, width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.6/vue.min.js"></script>
+  <script src="../dist/validachan.js"></script>
+  <script src="./i18n/validachan.i18n.ja.js"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const form = new Vue({
+    el: '#form1',
+    data() {
+      return {
+        form: {
+          required: '',
+          numeric: '',
+          numericOptions: '',
+          conditionValue: '',
+          validationValue: '',
+          phone1: '',
+          phone2: '',
+          phone3: '',
+          phoneNumber: '',
+          lengthMin: '',
+          lengthMax: '',
+          lengthIs: ''
+        },
+        errors: {
+          required: [],
+          numeric: [],
+          numericOptions: [],
+          validationValue: [],
+          phoneNumber: [],
+          lengthMin: [],
+          lengthMax: [],
+          lengthIs: []
+        }
+      }
+    },
+    watch: {
+      'form.phone1': function(){
+        this.form.phoneNumber = this.getPhoneNumber()
+      },
+      'form.phone2': function(){
+        this.form.phoneNumber = this.getPhoneNumber()
+      },
+      'form.phone3': function(){
+        this.form.phoneNumber = this.getPhoneNumber()
+      }
+    },
+    methods: {
+      validate() {
+        Object.assign(
+          this.errors,
+          Validachan.validate(this.form, 'required', ["required"]),
+          Validachan.validate(this.form, 'numeric', ["numeric"]),
+          Validachan.ValidationRules.numeric(this.form, ["numericOptions"], {ge: 2, le: 5}),
+          Validachan.ValidationRules.numeric(this.form, ["validationValue"], { lt: 5, if: (params) => params['conditionValue'] > 10 }),
+          Validachan.ValidationRules.format(this.form, ["phoneNumber"], {regex: /[0-9]{1,4}\-[0-9]{1,4}\-[0-9]{1,4}/}),
+          Validachan.validate(this.form, 'length', ["lengthMin"], {min: 5}),
+          Validachan.validate(this.form, 'length', ["lengthMax"], {max: 5}),
+          Validachan.validate(this.form, 'length', ["lengthIs"], {is: 5})
+        )
+      },
+      getPhoneNumber() {
+        return `${this.form.phone1}-${this.form.phone2}-${this.form.phone3}`
+      }
+    }
+  })
+})
+  </script>
+  <script>
+    const i18n = new ValidationMessageJa();
+  </script>
+  <style type="text/css">
+    .errors li {
+      color: #f93333;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>Examples</h1>
+    <h2>Simple Use</h2>
+    <form id="form1">
+      <div>
+        <label>exists</label>
+        <input type="text" v-model="form.required">
+        <div class="errors">
+          <ul>
+            <li v-for="error in errors.required">{{i18n.t(error)}}</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <label>numeric</label>
+        <input type="text" v-model="form.numeric">
+        <div class="errors">
+          <ul>
+            <li v-for="error in errors.numeric">{{i18n.t(error)}}</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <label>numeric options</label>
+        <input type="text" v-model="form.numericOptions">
+        <div class="errors">
+          <ul>
+            <li v-for="error in errors.numericOptions">{{i18n.t(error)}}</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div>
+        <label>condition value > 10</label>
+        <input type="text" v-model="form.conditionValue">
+        
+        <label>validation value < 5</label>
+        <input type="text" v-model="form.validationValue">
+        <div class="errors">
+          <ul>
+            <li v-for="error in errors.validationValue">{{i18n.t(error)}}</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <label>regex</label>
+          <input type="text" v-model="form.phone1">-<input type="text" v-model="form.phone2">-<input type="text" v-model="form.phone3">
+          <div class="errors">
+            <ul>
+              <li v-for="error in errors.phoneNumber">{{i18n.t(error)}}</li>
+            </ul>
+          </div>
+      </div>
+      <div>
+        <label>length min</label>
+          <input type="text" v-model="form.lengthMin">
+          <div class="errors">
+            <ul>
+              <li v-for="error in errors.lengthMin">{{i18n.t(error)}}</li>
+            </ul>
+          </div>
+      </div>
+      <div>
+        <label>length max</label>
+          <input type="text" v-model="form.lengthMax">
+          <div class="errors">
+            <ul>
+              <li v-for="error in errors.lengthMax">{{i18n.t(error)}}</li>
+            </ul>
+          </div>
+      </div>
+      <div>
+        <label>length is</label>
+          <input type="text" v-model="form.lengthIs">
+          <div class="errors">
+            <ul>
+              <li v-for="error in errors.lengthIs">{{i18n.t(error)}}</li>
+            </ul>
+          </div>
+      </div>
+      <div>
+        <button type="button" class="js-check" v-on:click="validate">Validate</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
+    

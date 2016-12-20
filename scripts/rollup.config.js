@@ -12,7 +12,7 @@ const banner = `/*!
  * ${meta.homepage}/blob/master/LICENSE
  */`
 
-const moduleName = 'Lib'
+const moduleName = 'Validachan'
 
 const plugins = [
   babel({
