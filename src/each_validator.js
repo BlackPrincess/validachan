@@ -30,7 +30,7 @@ export class EachValidator {
       if(!opt['apply_undef'] && !params[key]) return
       const value = params[key]
       const error = this.validateEach(params, key, value, options)
-      if(error !== {}) {
+      if(error !== null) {
         errors[key].push(error)
       }
     })

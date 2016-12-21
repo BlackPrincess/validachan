@@ -1,4 +1,5 @@
 import {EachValidator} from '../each_validator.js'
+import {ValidationError} from '../validation_error.js'
 
 export class RequiredValidator extends EachValidator {
   static defaultOptions(option) {
@@ -9,8 +10,8 @@ export class RequiredValidator extends EachValidator {
   
   static validateEach(params, key, value, options) {
     if(!params[key]) {
-      return {key: 'required'}
+      return new ValidationError('required', key, value)
     }
-    return {}
+    return null
   }
 }

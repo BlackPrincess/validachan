@@ -1,7 +1,6 @@
 class ValidationMessage {
-  translate(args) {
-    const key = args['key']
-    return this.getMessage(key, args)
+  translate(error) {
+    return this.getMessage(error.validationType, error.options)
   }
   t(args) {
     return this.translate(args)

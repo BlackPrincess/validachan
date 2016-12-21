@@ -3,9 +3,6 @@ import {LengthValidator} from './buildin/length_validator'
 import {NumericValidator} from './buildin/numeric_validator'
 import {FormatValidator} from './buildin/format_validator'
 
-
-
-
 export class ValidationRules {
   static required(params, keys, options = {}) {
     return RequiredValidator.validate(params, keys, options)

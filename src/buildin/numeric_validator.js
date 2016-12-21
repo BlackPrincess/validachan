@@ -1,4 +1,5 @@
 import {EachValidator} from '../each_validator.js'
+import {ValidationError} from '../validation_error.js'
 
 export class NumericValidator extends EachValidator {
   static validateEach(params, key, value, options) {
@@ -9,20 +10,20 @@ export class NumericValidator extends EachValidator {
     const parsedValue = parseFloat(value)
     
     if(opt["ge"] && parsedValue < opt["ge"]) {
-      return {key: 'numeric_ge', value: opt["ge"]}
+      return new ValidationError('numeric_ge', key, value, {value: opt["ge"]})
     }
     
     if(opt["gt"] && parsedValue <= opt["gt"]) {
-      return {key: 'numeric_gt', value: opt["gt"]}
+      return new ValidationError('numeric_gt', key, value, {value: opt["gt"]})
     }
     
     if(opt["lt"] && opt["lt"] <= parsedValue) {
-      return {key: 'numeric_lt', value: opt["lt"]}
+      return new ValidationError('numeric_lt', key, value, {value: opt["lt"]})
     }
     
     if(opt["le"] && parsedValue > opt["le"]) {
-      return {key: 'numeric_le', value: opt["le"]}
+      return new ValidationError('numeric_le', key, value, {value: opt["le"]})
     }
-    return {}
+    return null
   }
 }
