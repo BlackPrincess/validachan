@@ -1,8 +1,10 @@
 {
   "presets": [
-    ["es2015"]
+    ["es2015", {"modules": false}]
   ],
-
+  "plugins": [
+    "transform-class-properties",
+  ],
   "env": {
     "test": {
       "presets": ["power-assert"]
