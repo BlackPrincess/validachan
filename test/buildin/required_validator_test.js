@@ -2,7 +2,7 @@ import assert from 'power-assert'
 import {RequiredValidator} from '../../src/buildin/required_validator.js'
 
 describe('RequiredValidator', () => {
-  it('exports world', () => {
+  it('validation', () => {
     const noop = 'noop'
     const testTarget = {foo: 'foo value', bar: '', baz: null}
     assert(RequiredValidator.validateEach(testTarget, 'foo', noop) === null)
