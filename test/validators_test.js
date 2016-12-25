@@ -33,7 +33,17 @@ describe('Validators', () => {
       foo: 'aa'
     }
     const errors = validators.validate(params)
-    // TODO
     assert(errors.foo.length === 2)
+  })
+  
+  
+  it('validate single options', () => {
+    const validators = (new Validators())
+      .rule('foo', {type:'required'})
+    const params = {
+      foo: ''
+    }
+    const errors = validators.validate(params)
+    assert(errors.foo.length === 1)
   })
 })

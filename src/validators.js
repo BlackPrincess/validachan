@@ -6,7 +6,8 @@ export class Validators {
   }
   
   rule(key, validations) {
-    const validation = validations.map((a) => {
+    const _validations = Array.isArray(validations) ? validations : [validations]
+    const validation = _validations.map((a) => {
       return {
         validationType: a.type, 
         key: key, 

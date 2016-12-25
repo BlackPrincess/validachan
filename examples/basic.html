@@ -57,18 +57,18 @@
     methods: {
       validate() {
         const validator = Validachan.rule('required', [{type: 'required'}])
-          .rule('numeric', [{type: 'numeric'}])
-          .rule('numericOptions', [{type: 'numeric', options: {ge: 2, le: 5}}])
-          .rule('validationValue', [{type: 'numeric', options: { 
+          .rule('numeric', {type: 'numeric'})
+          .rule('numericOptions', {type: 'numeric', options: {ge: 2, le: 5}})
+          .rule('validationValue', {type: 'numeric', options: { 
             lt: 5, 
             if: (params) => params['conditionValue'] > 10 
             }
-            }]).rule('phoneNumber', [{type: 'format', options: {
+            }).rule('phoneNumber', {type: 'format', options: {
               regex: /[0-9]{1,4}\-[0-9]{1,4}\-[0-9]{1,4}/, 
               if: (params) => params.phoneNumber !== '--'
-            }}]).rule('lengthMin', [{type: 'length', options:{min: 5}}])
-            .rule('lengthMax', [{type: 'length', options:{max: 5}}])
-            .rule('lengthIs', [{type: 'length', options:{is: 5}}])
+            }}).rule('lengthMin', {type: 'length', options:{min: 5}})
+            .rule('lengthMax', {type: 'length', options:{max: 5}})
+            .rule('lengthIs', {type: 'length', options:{is: 5}})
             
         this.errors = validator.validate(this.form)
       },
