@@ -20,7 +20,7 @@ export class Validators {
     return this.rules.reduce((errors, rule) => {
       // HACK
       if(errors[rule.key]) {
-        errors[rule.key].concat(validate(params, rule.key, rule.validationType, rule.options))
+        errors[rule.key] = errors[rule.key].concat(validate(params, rule.key, rule.validationType, rule.options))
       } else {
         errors[rule.key] = validate(params, rule.key, rule.validationType, rule.options)
       }

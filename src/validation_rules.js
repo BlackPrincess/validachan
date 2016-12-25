@@ -13,7 +13,6 @@ export class ValidationRules {
     return NumericValidator.validate(params, key, options)
   }
   
-  
   static format(params, key, options = {}) {
     return FormatValidator.validate(params, key, options)
   }
