@@ -1,5 +1,5 @@
 import assert from 'power-assert'
-import {Validators} from '../src/index.js'
+import {Validators} from '../src/validators.js'
 
 describe('Validators', () => {
   it('rule', () => {
