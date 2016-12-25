@@ -9,20 +9,20 @@ export class NumericValidator extends EachValidator {
     
     const parsedValue = parseFloat(value)
     
-    if(opt["ge"] && parsedValue < opt["ge"]) {
-      return new ValidationError('numeric_ge', key, value, {value: opt["ge"]})
+    if(options["ge"] && parsedValue < options["ge"]) {
+      return new ValidationError('numeric_ge', key, value, {value: options["ge"]})
     }
     
-    if(opt["gt"] && parsedValue <= opt["gt"]) {
-      return new ValidationError('numeric_gt', key, value, {value: opt["gt"]})
+    if(options["gt"] && parsedValue <= options["gt"]) {
+      return new ValidationError('numeric_gt', key, value, {value: options["gt"]})
     }
     
-    if(opt["lt"] && opt["lt"] <= parsedValue) {
-      return new ValidationError('numeric_lt', key, value, {value: opt["lt"]})
+    if(options["lt"] && options["lt"] <= parsedValue) {
+      return new ValidationError('numeric_lt', key, value, {value: options["lt"]})
     }
     
-    if(opt["le"] && parsedValue > opt["le"]) {
-      return new ValidationError('numeric_le', key, value, {value: opt["le"]})
+    if(options["le"] && parsedValue > options["le"]) {
+      return new ValidationError('numeric_le', key, value, {value: options["le"]})
     }
     return null
   }

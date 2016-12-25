@@ -16,24 +16,19 @@ export class EachValidator {
     return {}
   }
   
-  static validate(params, keys, options = {}) {
+  static validate(params, key, options = {}) {
     const opt = this.defaultOptions(options)
     
     if(!this.isApply(params, opt)) return
     
-    const errors = {}
-    keys.forEach(key => {
-      errors[key] = []
-    })
-    
-    keys.map(key => {
-      if(!opt['apply_undef'] && !params[key]) return
-      const value = params[key]
-      const error = this.validateEach(params, key, value, options)
-      if(error !== null) {
-        errors[key].push(error)
-      }
-    })
-    return errors
+    const errors = {key: key}
+
+    if(!opt['apply_undef'] && !params[key]) return
+    const value = params[key]
+    const error = this.validateEach(params, key, value, options)
+    if(error !== null) {
+      return [error]
+    }
+    return []
   }
 }

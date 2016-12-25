@@ -6,6 +6,16 @@
     "transform-class-properties",
   ],
   "env": {
+    "development": {
+      "plugins": [
+        "external-helpers"
+      ]
+    },
+    "production": {
+      "plugins": [
+        "external-helpers"
+      ]
+    },
     "test": {
       "presets": ["power-assert"]
     }

@@ -56,17 +56,21 @@
     },
     methods: {
       validate() {
-        Object.assign(
-          this.errors,
-          Validachan.validate(this.form, 'required', ["required"]),
-          Validachan.validate(this.form, 'numeric', ["numeric"]),
-          Validachan.ValidationRules.numeric(this.form, ["numericOptions"], {ge: 2, le: 5}),
-          Validachan.ValidationRules.numeric(this.form, ["validationValue"], { lt: 5, if: (params) => params['conditionValue'] > 10 }),
-          Validachan.ValidationRules.format(this.form, ["phoneNumber"], {regex: /[0-9]{1,4}\-[0-9]{1,4}\-[0-9]{1,4}/}),
-          Validachan.validate(this.form, 'length', ["lengthMin"], {min: 5}),
-          Validachan.validate(this.form, 'length', ["lengthMax"], {max: 5}),
-          Validachan.validate(this.form, 'length', ["lengthIs"], {is: 5})
-        )
+        const validator = Validachan.rule('required', [{type: 'required'}])
+          .rule('numeric', [{type: 'numeric'}])
+          .rule('numericOptions', [{type: 'numeric', options: {ge: 2, le: 5}}])
+          .rule('validationValue', [{type: 'numeric', options: { 
+            lt: 5, 
+            if: (params) => params['conditionValue'] > 10 
+            }
+            }]).rule('phoneNumber', [{type: 'format', options: {
+              regex: /[0-9]{1,4}\-[0-9]{1,4}\-[0-9]{1,4}/, 
+              if: (params) => params.phoneNumber !== '--'
+            }}]).rule('lengthMin', [{type: 'length', options:{min: 5}}])
+            .rule('lengthMax', [{type: 'length', options:{max: 5}}])
+            .rule('lengthIs', [{type: 'length', options:{is: 5}}])
+            
+        this.errors = validator.validate(this.form)
       },
       getPhoneNumber() {
         return `${this.form.phone1}-${this.form.phone2}-${this.form.phone3}`
