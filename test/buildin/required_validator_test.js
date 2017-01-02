@@ -5,9 +5,10 @@ describe('RequiredValidator', () => {
   it('validation', () => {
     const noop = 'noop'
     const testTarget = {foo: 'foo value', bar: '', baz: null}
-    assert(RequiredValidator.validateEach(testTarget, 'foo', noop) === null)
-    assert(RequiredValidator.validateEach(testTarget, 'bar', noop) !== null)
-    assert(RequiredValidator.validateEach(testTarget, 'baz', noop) !== null)
-    assert(RequiredValidator.validateEach(testTarget, 'undef', noop) !== null)
+    const validator = new RequiredValidator()
+    assert(validator.validateEach(testTarget, 'foo', noop) === null)
+    assert(validator.validateEach(testTarget, 'bar', noop) !== null)
+    assert(validator.validateEach(testTarget, 'baz', noop) !== null)
+    assert(validator.validateEach(testTarget, 'undef', noop) !== null)
   })
 })

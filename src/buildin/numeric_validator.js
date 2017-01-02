@@ -2,7 +2,7 @@ import {EachValidator} from '../each_validator.js'
 import {ValidationError} from '../validation_error.js'
 
 export class NumericValidator extends EachValidator {
-  static validateEach(params, key, value, options) {
+  validateEach(params, key, value, options) {
     if(isNaN(value)) {
       return {key: 'numeric'}
     }

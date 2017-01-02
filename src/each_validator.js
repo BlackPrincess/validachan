@@ -1,22 +1,22 @@
 export class EachValidator {
-  static defaultOptions(option) {
+  defaultOptions(option) {
     if(!option['if']) option['if'] = function() { return true; }
     if(!option['unless']) option['unless'] = function() { return false; }
     if(!option['apply_undef']) option['apply_undef'] = false
     return option
   }
   
-  static isApply(params, options) {
+  isApply(params, options) {
     if(!options['if'](params)) return false
     if(options['unless'](params)) return false
     return true;
   }
   
-  static validateEach(params, key, value, options) {
+  validateEach(params, key, value, options) {
     return {}
   }
   
-  static validate(params, key, options = {}) {
+  validate(params, key, options = {}) {
     const opt = this.defaultOptions(options)
     
     if(!this.isApply(params, opt)) return

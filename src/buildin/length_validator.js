@@ -2,7 +2,7 @@ import {EachValidator} from '../each_validator.js'
 import {ValidationError} from '../validation_error.js'
 
 export class LengthValidator extends EachValidator {
-  static validateEach(params, key, value, options) {
+  validateEach(params, key, value, options) {
     if(options['min'] && value.length < parseInt(options['min'], 10)) {
       return new ValidationError('length_min', key, value, {value: options['min']})
     }
