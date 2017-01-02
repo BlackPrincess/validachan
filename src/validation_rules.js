@@ -5,6 +5,10 @@ import {FormatValidator} from './buildin/format_validator'
 
 export class ValidationRules {
   
+  static get(validationType) {
+    return this[validationType]
+  }
+  
   static required(params, key, options = {}) {
     return (new RequiredValidator()).validate(params, key, options)
   }

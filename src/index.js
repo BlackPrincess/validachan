@@ -6,5 +6,5 @@ export function rule(key, validations) {
 }
 
 export function validate(params, key, validationType, options = {}) {
-  return ValidationRules[validationType](params, key, options)
+  return ValidationRules.get(validationType)(params, key, options)
 }
