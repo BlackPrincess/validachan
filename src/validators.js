@@ -1,4 +1,5 @@
 import {validate} from './index'
+import {ObjectUtil} from './std_utils/object_util'
 
 export class Validators {
   constructor(rules = []) {
@@ -20,13 +21,15 @@ export class Validators {
   validate(params) {
     return this.rules.reduce((errors, rule) => {
       // HACK
+      const error = validate(params, rule.key, rule.validationType, rule.options)
+      
       if(errors[rule.key]) {
-        errors[rule.key] = errors[rule.key].concat(validate(params, rule.key, rule.validationType, rule.options))
+        errors[rule.key] = errors[rule.key].concat(error)
       } else {
-        errors[rule.key] = validate(params, rule.key, rule.validationType, rule.options)
+        errors[rule.key] = error
       }
       
       return errors;
-    }, {})
+    }, ObjectUtil.tuplesToObject(Object.keys(params).map((a) => [a, []])))
   }
 }

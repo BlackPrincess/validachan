@@ -22,7 +22,7 @@ describe('Validators', () => {
     // TODO
     assert(errors.foo.length === 1)
     assert(errors.bar.length === 1)
-    assert(errors.baz === undefined)
+    assert(errors.baz.length === 0)
   })
   
   it('validate mulpiple', () => {
@@ -30,10 +30,13 @@ describe('Validators', () => {
       .rule('foo', [{type: 'length', options: {min: 5}}])
       .rule('foo', [{type: 'format', options: {regex: /\d{5-6}/}}])
     const params = {
-      foo: 'aa'
+      foo: 'aa',
+      bar: ''
     }
     const errors = validators.validate(params)
     assert(errors.foo.length === 2)
+    assert(errors.bar.length === 0)
+    assert(errors.baz === undefined)
   })
   
   
