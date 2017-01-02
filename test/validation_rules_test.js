@@ -1,7 +1,7 @@
 import assert from 'power-assert'
 import {ValidationRules} from '../src/validation_rules.js'
 
-describe('Validators', () => {
+describe('ValidationRules', () => {
   it('get', () => {
     assert(ValidationRules.get('required') !== undefined)
     assert(ValidationRules.get('numeric') !== undefined)
